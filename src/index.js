@@ -6,7 +6,7 @@ import { sendError } from './utilis/response'
 const app = new Hono()
 const api = new Hono()
 
-app.user('*', async (c, next) => {
+app.use('*', async (c, next) => {
   c.set('traceId', crypto.randomUUID())
   await next()
 })
