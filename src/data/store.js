@@ -3,15 +3,16 @@ const seededAt = new Date().toISOString()
 let projects = [
   {
     id: 1,
-    name: 'Portfolio Website Refresh',
-    description: 'Update the visuals and project case studies.',
+    name: 'Expense Splitter',
+    description: 'Split shared costs between friends and track who owes what.',
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 2,
-    name: 'Design Systems Workshop',
-    description: 'Prepare teaching material for the class workshop.',
+    name: 'Anime Roulette Watchlist',
+    description:
+      'Spin a roulette to pick a random show and save it to a watchlist.',
     created_at: seededAt,
     updated_at: seededAt,
   },
