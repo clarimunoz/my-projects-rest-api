@@ -22,8 +22,9 @@ let tasks = [
   {
     id: 1,
     project_id: 1,
-    title: 'Draft homepage wireframes',
-    description: 'Create desktop and mobile layout drafts.',
+    title: 'Build item entry form',
+    description:
+      'Let users add each person splitting the bill, then log every item with who paid and its price.',
     status: 'in_progress',
     created_at: seededAt,
     updated_at: seededAt,
@@ -31,8 +32,9 @@ let tasks = [
   {
     id: 2,
     project_id: 1,
-    title: 'Collect new screenshots',
-    description: 'Replace old portfolio images.',
+    title: 'Calculate who owes what',
+    description:
+      'Total all items, divide the cost evenly, and work out what each person owes or is owed.',
     status: 'todo',
     created_at: seededAt,
     updated_at: seededAt,
@@ -40,8 +42,9 @@ let tasks = [
   {
     id: 3,
     project_id: 2,
-    title: 'Finalize slide deck',
-    description: 'Include examples of good API designs.',
+    title: 'Design roulette spinner',
+    description:
+      'Create the spin animation that picks a random show from the list.',
     status: 'done',
     created_at: seededAt,
     updated_at: seededAt,
