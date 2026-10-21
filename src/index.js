@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import projects from './routes/projects'
+import tasks from './routes/tasks'
 import { isApiError } from './utilis/errors'
 import { sendError } from './utilis/response'
 
@@ -12,6 +13,7 @@ app.use('*', async (c, next) => {
 })
 
 api.route('/projects', projects)
+api.route('/tasks', tasks)
 
 app.route('/api', api)
 
