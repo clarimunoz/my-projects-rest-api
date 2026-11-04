@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
-import { deleteTask, getTaskById, updateTask } from '../data/store'
+import { getDb } from '../data/db'
+import { deleteTask, getTaskById, updateTask } from '../data/tasks.repository'
 import { parseJsonBody } from '../utilis/body'
 import { ApiError } from '../utilis/errors'
 import { sendResource } from '../utilis/response'
@@ -7,9 +8,10 @@ import { parseIdParam, validateTaskPatch } from '../utilis/validation'
 
 const tasks = new Hono()
 
-tasks.get('/:id', (c) => {
+tasks.get('/:id', async (c) => {
   const id = parseIdParam(c.req.param('id'))
-  const task = getTaskById(id)
+  const db = getDb(c.env.DB)
+  const task = await getTaskById(db, id)
 
   if (!task) {
     throw new ApiError(404, 'NOT_FOUND', 'Task not found.')
@@ -32,7 +34,8 @@ tasks.patch('/:id', async (c) => {
     )
   }
 
-  const updatedTask = updateTask(id, payload)
+  const db = getDb(c.env.DB)
+  const updatedTask = await updateTask(db, id, payload)
 
   if (!updatedTask) {
     throw new ApiError(404, 'NOT_FOUND', 'Task not found.')
@@ -41,9 +44,10 @@ tasks.patch('/:id', async (c) => {
   return sendResource(c, updatedTask)
 })
 
-tasks.delete('/:id', (c) => {
+tasks.delete('/:id', async (c) => {
   const id = parseIdParam(c.req.param('id'))
-  const deleted = deleteTask(id)
+  const db = getDb(c.env.DB)
+  const deleted = await deleteTask(db, id)
 
   if (!deleted) {
     throw new ApiError(404, 'NOT_FOUND', 'Task not found.')

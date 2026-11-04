@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { getDb } from '../data/db.js'
-import { createTask, listTaskByProject } from '../data/store.js'
+import { createTask, listTaskByProject } from '../data/tasks.repository.js'
 import {
   listProjects,
   createProject,
@@ -55,7 +55,7 @@ projects.get('/:id/tasks', async (c) => {
     throw new ApiError(404, 'NOT_FOUND', 'Project not found.')
   }
 
-  const data = listTaskByProject(projectId)
+  const data = await listTaskByProject(db, projectId)
   return sendCollection(c, data)
 })
 
@@ -80,7 +80,7 @@ projects.post('/:id/tasks', async (c) => {
     )
   }
 
-  const task = createTask(projectId, payload)
+  const task = await createTask(db, projectId, payload)
   c.header('Location', `/api/tasks/${task.id}`)
   return sendResource(c, task, 201)
 })
