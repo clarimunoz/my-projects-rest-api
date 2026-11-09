@@ -14,7 +14,7 @@ export async function signAccessToken(payload, secret) {
 }
 
 export async function verifyAccessToken(token, secret) {
-  return verify(token, secret, 'H5256')
+  return verify(token, secret, 'HS256')
 }
 
 export function refreshTokenExpires() {
