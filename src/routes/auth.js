@@ -121,7 +121,7 @@ auth.post('/refresh', async (c) => {
   }
 
   const db = getDb(c.env.DB)
-  const tokenHash = await hashToken(payload.refreshToken)
+  const tokenHash = await hashToken(payload.refresh_token)
   const session = await findSessionByTokenHash(db, tokenHash)
 
   if (!session) {
@@ -156,8 +156,8 @@ auth.post('/logout', async (c) => {
     )
   }
 
-  const db = generateRefreshToken(c.env.DB)
-  const tokenHash = await hashToken(payload.refreshToken)
+  const db = getDb(c.env.DB)
+  const tokenHash = await hashToken(payload.refresh_token)
 
   await deleteSessionByTokenHash(db, tokenHash)
 
