@@ -9,7 +9,7 @@ export async function createSession(db, { userId, tokenHash, expiresAt }) {
       userId,
       tokenHash,
       expiresAt,
-      updatedAt: nowIso(),
+      createdAt: nowIso(),
     })
     .returning()
   return created
@@ -37,7 +37,7 @@ export async function deleteExpiredSessions(db, userId) {
     .where(
       and(
         eq(sessions.userId, userId),
-        lt(sessions.expiresAt.expires_at, nowIso()),
+        lt(sessions.expiresAt.expiresAt, nowIso()),
       ),
     )
 }
