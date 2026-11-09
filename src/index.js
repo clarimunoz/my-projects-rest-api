@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import projects from './routes/projects'
+import auth from './routes/auth'
 import tasks from './routes/tasks'
+import { authenticate } from './middleware/authenticate'
 import { isApiError } from './utilis/errors'
 import { sendError } from './utilis/response'
 
@@ -12,6 +14,9 @@ app.use('*', async (c, next) => {
   await next()
 })
 
+api.route('/auth', auth)
+
+api.use('*', authenticate)
 api.route('/projects', projects)
 api.route('/tasks', tasks)
 
