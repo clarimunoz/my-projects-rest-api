@@ -12,7 +12,7 @@ export function rateLimitMiddleware(bindingName) {
     const ip = c.req.header('cf-connecting-ip') ?? 'anonymous'
     const key = `${c.req.path}: ${ip}`
 
-    const { success } = await rateLimitMiddleware.limit({ key })
+    const { success } = await limiter.limit({ key })
 
     if (!success) {
       throw new ApiError(

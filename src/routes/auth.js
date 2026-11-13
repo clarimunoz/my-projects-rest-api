@@ -44,7 +44,11 @@ auth.post('/register', authLimiter, async (c) => {
   const existing = await findUserByEmail(db, payload.email)
 
   if (existing) {
-    throw new ApiError(409, 'CONFLICT', 'Auser with that email already exists.')
+    throw new ApiError(
+      409,
+      'CONFLICT',
+      'A user with that email already exists.',
+    )
   }
   const passwordHash = await hashPassword(payload.password)
   const user = await createUser(db, { email: payload.email, passwordHash })
